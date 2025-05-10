@@ -4,7 +4,8 @@ from .prompts import (
     get_current_lesson_prompt,
     get_previous_lessons_prompt,
 )
-from .models import Lesson, LessonConcept, SupportedModels
+from .base_client import BaseLLMClient
+from .models import Lesson, LessonConcept, SupportedModels, StudyTopics, LessonReference
 
 __all__ = [
     "AITeacher",
@@ -14,4 +15,7 @@ __all__ = [
     "Lesson",
     "LessonConcept",
     "SupportedModels",
+    "StudyTopics",
+    "LessonReference",
+    "BaseLLMClient",
 ]

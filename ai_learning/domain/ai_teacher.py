@@ -1,8 +1,9 @@
-from google.genai import Client, types
+from google.genai import types
 import json
 from dataclasses import field
 from datetime import datetime
 
+from .base_client import BaseLLMClient
 from ai_learning.utils import retry
 
 from .models import SupportedModels
@@ -16,9 +17,9 @@ from .prompts import (
 
 
 class AITeacher:
-    def __init__(self, api_key: str, model: SupportedModels):
-        self.api_client = Client(api_key=api_key)
-        self.model = model
+    def __init__(self, llm_api_client: BaseLLMClient, model_name: SupportedModels):
+        self.api_client = llm_api_client
+        self.model_name = model_name
 
     @retry()
     def create_lesson(
@@ -28,14 +29,12 @@ class AITeacher:
         previous_lessons: list[LessonConcept] = field(default_factory=list),
     ) -> Lesson:
         prompt = self._create_lesson_prompt(topic, concept, previous_lessons)
-        response = self.api_client.models.generate_content(
-            model=self.model,
-            contents=prompt,
+        response = self.api_client.generate(
+            model_name=self.model_name,
+            prompt=prompt,
             config=types.GenerateContentConfig(response_modalities=["TEXT"]),
         )
-        return self._raw_response_to_lesson(
-            response.candidates[0].content.parts[0].text  # type: ignore
-        )
+        return self._raw_response_to_lesson(response)
 
     def _create_lesson_prompt(
         self, topic: str, concept: str, previous_lessons: list[LessonConcept]

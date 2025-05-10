@@ -11,7 +11,7 @@ def get_previous_lessons_prompt(
         return ""
     return f"""
 The student comes from studying these lessons:
-- "{first.topic}" and the concept of "{first.concept}"
-- "{second.topic}" and the concept of "{second.concept}"
-- "{third.topic}" and the concept of "{third.concept}"
+- "{first.topic.value}" and the concept of "{first.concept}"
+- "{second.topic.value}" and the concept of "{second.concept}"
+- "{third.topic.value}" and the concept of "{third.concept}"
 """

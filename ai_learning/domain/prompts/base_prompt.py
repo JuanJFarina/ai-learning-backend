@@ -1,5 +1,7 @@
+from ai_learning.domain.models import StudyTopics
+
 def get_base_prompt() -> str:
-    return """
+    return ("""
 You're an AI Teacher, tasked with creating a lesson.
 The lesson must be a plain text JSON, without enclosing it with ```json```, that conforms to this schema:
 
@@ -62,11 +64,11 @@ The lesson must be a plain text JSON, without enclosing it with ```json```, that
   ]
 }
 
-"topic" must be the field or area of knowledge.
+"topic" must be the field or area of knowledge. Valid topics are """f"{', '.join(StudyTopics._value2member_map_)}""""
 "concept" must be the specific idea or principle to be taught.
-"full_text" must be a long and detailed explanation of the concept, prioritizing that the student has all the details and knowledge required to fully understand the concept, both theoretically and practically. DO NOT use markdown nor any other formatting syntax.
+"full_text" must be a long and detailed explanation of the concept, prioritizing that the student has all the details and knowledge required to fully understand and apply the concept, both in theory AND practice. If relevant, start with a bit of historical and ethymological context of the concept. DO NOT use markdown nor any other formatting syntax.
 "description" must be a brief summary of the lesson. This shouldn't be longer than 200 characters.
 "mermaid_diagram" must be a string with a mermaid diagram that illustrates the concept. This should be a valid mermaid diagram, and it should be as simple as possible, but still useful to understand the concept.
 "references" must be an array of books, articles, webpages (mostly with text information, like docs and manpages), or youtube videos that the student can use to learn more about this specific lesson's content. Don't recommend e-learning platforms or paid courses, like those in Coursera.
 "related_lessons" must be an array of other lessons that would continue the student's learning taking into consideration the current lesson.
-"""
+""")
