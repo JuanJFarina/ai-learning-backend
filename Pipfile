@@ -9,6 +9,7 @@ google-generativeai = "*"
 google-genai = "*"
 pydantic = "*"
 pydantic-settings = "*"
+fastapi = "*"
 
 [dev-packages]
 ipykernel = "*"

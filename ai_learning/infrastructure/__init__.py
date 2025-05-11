@@ -1,3 +1,3 @@
-from .google_client import GoogleClient
+from .llm_api import GoogleClient
 
 __all__ = ["GoogleClient"]
