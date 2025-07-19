@@ -4,7 +4,7 @@ from ai_learning.application import create_lesson
 from ai_learning.domain import Lesson, StudyTopics
 from ai_learning.infrastructure import GoogleClient
 from .models import HealthcheckResponse
-from typing import Annotated
+from typing import Annotated, Any
 
 
 app = FastAPI(
@@ -35,3 +35,6 @@ async def get_lesson(
         GoogleClient()
     )  # TODO: implement a dependency injection framework in the create_lesson function
     return create_lesson(llm_api_client, topic, concept)
+
+
+# TODO implement a custom exception handler for a custom exception creating lessons
